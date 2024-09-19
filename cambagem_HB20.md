@@ -1,8 +1,16 @@
 Cálculos de Aceleração Lateral com Cambagem Diferente Entre as Rodas
-Considerar cambagens diferentes entre as rodas adiciona uma camada extra de complexidade ao cálculo da aceleração lateral, mas permite uma análise mais precisa do comportamento do veículo em curvas. A seguir, vamos detalhar como incorporar cambagens diferentes nos cálculos.
-
 1. Força Lateral Individual por Roda
-Quando as cambagens são diferentes, devemos calcular a força lateral para cada pneu individualmente:
+Para cada roda, a força lateral 
+𝐹
+𝐿
+𝑖
+F 
+L 
+i
+​
+ 
+​
+  é dada por:
 
 𝐹
 𝐿
@@ -48,9 +56,9 @@ i
 ​
   é a força lateral na roda 
 𝑖
-i.
+i;
 𝜇
-μ é o coeficiente de atrito.
+μ é o coeficiente de atrito;
 𝐹
 𝑧
 𝑖
@@ -62,7 +70,7 @@ i
 ​
   é a força normal (vertical) na roda 
 𝑖
-i.
+i;
 𝑓
 (
 𝛼
@@ -71,17 +79,20 @@ i.
 f(α 
 i
 ​
- ) é a função de cambagem para o ângulo 
-𝛼
-𝑖
-α 
-i
-​
-  específico da roda 
+ ) é a função do ângulo de cambagem da roda 
 𝑖
 i.
-2. Função de Cambagem Individual (f(α_i))
-Para cada roda, a função de cambagem pode ser expressa como:
+2. Função da Cambagem
+A função 
+𝑓
+(
+𝛼
+𝑖
+)
+f(α 
+i
+​
+ ) pode ser simplificada como:
 
 𝑓
 (
@@ -102,7 +113,13 @@ i
 i
 ​
  
-Lembrando que 
+Onde 
+𝑘
+k é um fator empírico (por exemplo, 
+𝑘
+≈
+0.05
+k≈0.05 por grau de cambagem) e 
 𝛼
 𝑖
 α 
@@ -110,16 +127,13 @@ i
 ​
   é o ângulo de cambagem da roda 
 𝑖
-i em radianos (ou ajustar 
-𝑘
-k se usar graus), e 
-𝑘
-k é um fator empírico.
+i.
 
-3. Distribuição de Carga Dinâmica Individual
-A força normal em cada roda muda durante a curva devido à transferência de peso lateral. A carga vertical em cada roda pode ser calculada como:
+3. Distribuição de Carga Dinâmica
+A carga vertical em cada roda muda durante a curva devido à transferência de peso:
 
 Rodas Externas:
+
 𝐹
 𝑧
 _
@@ -151,6 +165,7 @@ z
 ​
  
 Rodas Internas:
+
 𝐹
 𝑧
 _
@@ -181,15 +196,12 @@ m⋅g
 z
 ​
  
-Onde 
-Δ
-𝐹
-𝑧
-ΔF 
-z
-​
-  é a transferência de carga lateral, calculada por:
+Onde:
 
+𝑚
+m é a massa do veículo;
+𝑔
+g é a aceleração da gravidade;
 Δ
 𝐹
 𝑧
@@ -213,9 +225,13 @@ L
 ​
  ⋅h
 ​
- 
+  é a transferência de carga lateral;
+ℎ
+h é a altura do centro de gravidade;
+𝑤
+w é a largura entre as rodas.
 4. Cálculo da Aceleração Lateral Máxima
-A aceleração lateral máxima pode ser encontrada ao equilibrar a soma das forças laterais das quatro rodas com a força centrípeta necessária:
+A aceleração lateral máxima é a soma das forças laterais das quatro rodas:
 
 𝑚
 ⋅
@@ -249,7 +265,7 @@ i
  
 ​
  
-Substituindo os valores individuais:
+Substituindo:
 
 𝑚
 ⋅
@@ -331,930 +347,3 @@ z4
 4
 ​
  ))
-5. Exemplo Numérico com Cambagens Diferentes
-Dados:
-Massa do HB20: 
-1200
- 
-𝑘
-𝑔
-1200kg.
-Altura do centro de gravidade (
-ℎ
-h): 
-0.5
- 
-𝑚
-0.5m.
-Largura entre as rodas (
-𝑤
-w): 
-1.5
- 
-𝑚
-1.5m.
-Coeficiente de atrito (
-𝜇
-μ): 
-1.0
-1.0.
-Fator de cambagem (
-𝑘
-k): 
-−
-0.0175
- 
-por grau
-−0.0175por grau (aproximadamente 
-−
-1
- 
-por radiano
-−1por radiano).
-Cambagens:
-Roda dianteira esquerda (
-𝛼
-1
-α 
-1
-​
- ): 
-−
-2
-∘
-−2 
-∘
- .
-Roda dianteira direita (
-𝛼
-2
-α 
-2
-​
- ): 
-−
-3
-∘
-−3 
-∘
- .
-Roda traseira esquerda (
-𝛼
-3
-α 
-3
-​
- ): 
-−
-1
-∘
-−1 
-∘
- .
-Roda traseira direita (
-𝛼
-4
-α 
-4
-​
- ): 
-−
-2
-∘
-−2 
-∘
- .
-Passos:
-Converter cambagens para radianos (se necessário):
-𝛼
-𝑖
- (rad)
-=
-𝛼
-𝑖
-∘
-×
-(
-𝜋
-180
-)
-α 
-i
-​
-  (rad)=α 
-i
-∘
-​
- ×( 
-180
-π
-​
- )
-Calcular 
-𝑓
-(
-𝛼
-𝑖
-)
-f(α 
-i
-​
- ) para cada roda:
-𝑓
-(
-𝛼
-𝑖
-)
-=
-1
-+
-𝑘
-⋅
-𝛼
-𝑖
-∘
-f(α 
-i
-​
- )=1+k⋅α 
-i
-∘
-​
- 
-Calcular 
-Δ
-𝐹
-𝑧
-ΔF 
-z
-​
- :
-Δ
-𝐹
-𝑧
-=
-1200
-⋅
-𝑎
-𝐿
-⋅
-0.5
-3
-=
-200
-⋅
-𝑎
-𝐿
-1
-ΔF 
-z
-​
- = 
-3
-1200⋅a 
-L
-​
- ⋅0.5
-​
- = 
-1
-200⋅a 
-L
-​
- 
-​
- 
-Calcular 
-𝐹
-𝑧
-𝑖
-F 
-z 
-i
-​
- 
-​
-  para cada roda:
-Rodas Externas (esquerda, assumindo curva para a direita):
-𝐹
-𝑧
-_
-𝑒
-𝑥
-𝑡
-𝑒
-𝑟
-𝑛
-𝑜
-=
-2943
-+
-Δ
-𝐹
-𝑧
-=
-2943
-+
-200
-⋅
-𝑎
-𝐿
-F 
-z_externo
-​
- =2943+ΔF 
-z
-​
- =2943+200⋅a 
-L
-​
- 
-Rodas Internas (direita):
-𝐹
-𝑧
-_
-𝑖
-𝑛
-𝑡
-𝑒
-𝑟
-𝑛
-𝑜
-=
-2943
-−
-Δ
-𝐹
-𝑧
-=
-2943
-−
-200
-⋅
-𝑎
-𝐿
-F 
-z_interno
-​
- =2943−ΔF 
-z
-​
- =2943−200⋅a 
-L
-​
- 
-Calcular 
-𝐹
-𝐿
-𝑖
-F 
-L 
-i
-​
- 
-​
-  para cada roda:
-Roda 1 (dianteira esquerda):
-𝐹
-𝐿
-1
-=
-𝜇
-⋅
-𝐹
-𝑧
-_
-𝑒
-𝑥
-𝑡
-𝑒
-𝑟
-𝑛
-𝑜
-⋅
-𝑓
-(
-𝛼
-1
-)
-=
-1.0
-⋅
-(
-2943
-+
-200
-⋅
-𝑎
-𝐿
-)
-⋅
-1.035
-F 
-L1
-​
- =μ⋅F 
-z_externo
-​
- ⋅f(α 
-1
-​
- )=1.0⋅(2943+200⋅a 
-L
-​
- )⋅1.035
-Roda 2 (dianteira direita):
-𝐹
-𝐿
-2
-=
-𝜇
-⋅
-𝐹
-𝑧
-_
-𝑖
-𝑛
-𝑡
-𝑒
-𝑟
-𝑛
-𝑜
-⋅
-𝑓
-(
-𝛼
-2
-)
-=
-1.0
-⋅
-(
-2943
-−
-200
-⋅
-𝑎
-𝐿
-)
-⋅
-1.0525
-F 
-L2
-​
- =μ⋅F 
-z_interno
-​
- ⋅f(α 
-2
-​
- )=1.0⋅(2943−200⋅a 
-L
-​
- )⋅1.0525
-Roda 3 (traseira esquerda):
-𝐹
-𝐿
-3
-=
-𝜇
-⋅
-𝐹
-𝑧
-_
-𝑒
-𝑥
-𝑡
-𝑒
-𝑟
-𝑛
-𝑜
-⋅
-𝑓
-(
-𝛼
-3
-)
-=
-1.0
-⋅
-(
-2943
-+
-200
-⋅
-𝑎
-𝐿
-)
-⋅
-1.0175
-F 
-L3
-​
- =μ⋅F 
-z_externo
-​
- ⋅f(α 
-3
-​
- )=1.0⋅(2943+200⋅a 
-L
-​
- )⋅1.0175
-Roda 4 (traseira direita):
-𝐹
-𝐿
-4
-=
-𝜇
-⋅
-𝐹
-𝑧
-_
-𝑖
-𝑛
-𝑡
-𝑒
-𝑟
-𝑛
-𝑜
-⋅
-𝑓
-(
-𝛼
-4
-)
-=
-1.0
-⋅
-(
-2943
-−
-200
-⋅
-𝑎
-𝐿
-)
-⋅
-1.035
-F 
-L4
-​
- =μ⋅F 
-z_interno
-​
- ⋅f(α 
-4
-​
- )=1.0⋅(2943−200⋅a 
-L
-​
- )⋅1.035
-Somar as forças laterais:
-Total
-=
-𝐹
-𝐿
-1
-+
-𝐹
-𝐿
-2
-+
-𝐹
-𝐿
-3
-+
-𝐹
-𝐿
-4
-=
-[
-(
-2943
-+
-200
-𝑎
-𝐿
-)
-⋅
-1.035
-]
-+
-[
-(
-2943
-−
-200
-𝑎
-𝐿
-)
-⋅
-1.0525
-]
-+
-[
-(
-2943
-+
-200
-𝑎
-𝐿
-)
-⋅
-1.0175
-]
-+
-[
-(
-2943
-−
-200
-𝑎
-𝐿
-)
-⋅
-1.035
-]
-Total
-​
-  
-=F 
-L1
-​
- +F 
-L2
-​
- +F 
-L3
-​
- +F 
-L4
-​
- 
-=[(2943+200a 
-L
-​
- )⋅1.035]+[(2943−200a 
-L
-​
- )⋅1.0525]
-+[(2943+200a 
-L
-​
- )⋅1.0175]+[(2943−200a 
-L
-​
- )⋅1.035]
-​
- 
-Equacionar para 
-𝑎
-𝐿
-_
-𝑚
-𝑎
-𝑥
-a 
-L_max
-​
- :
-1200
-⋅
-𝑎
-𝐿
-=
-Total
-1200⋅a 
-L
-​
- =Total
-Resolver a equação (este passo envolve álgebra e pode ser complexo, mas vamos simplificar):
-Vamos organizar os termos e resolver para 
-𝑎
-𝐿
-a 
-L
-​
- .
-
-Organizando os termos:
-Vamos expandir cada termo:
-
-F_{L1}:
-𝐹
-𝐿
-1
-=
-1.035
-⋅
-2943
-+
-1.035
-⋅
-200
-𝑎
-𝐿
-=
-3046.005
-+
-207
-𝑎
-𝐿
-F 
-L1
-​
- =1.035⋅2943+1.035⋅200a 
-L
-​
- =3046.005+207a 
-L
-​
- 
-F_{L2}:
-𝐹
-𝐿
-2
-=
-1.0525
-⋅
-2943
-−
-1.0525
-⋅
-200
-𝑎
-𝐿
-=
-3097.3575
-−
-210.5
-𝑎
-𝐿
-F 
-L2
-​
- =1.0525⋅2943−1.0525⋅200a 
-L
-​
- =3097.3575−210.5a 
-L
-​
- 
-F_{L3}:
-𝐹
-𝐿
-3
-=
-1.0175
-⋅
-2943
-+
-1.0175
-⋅
-200
-𝑎
-𝐿
-=
-2994.6525
-+
-203.5
-𝑎
-𝐿
-F 
-L3
-​
- =1.0175⋅2943+1.0175⋅200a 
-L
-​
- =2994.6525+203.5a 
-L
-​
- 
-F_{L4}:
-𝐹
-𝐿
-4
-=
-1.035
-⋅
-2943
-−
-1.035
-⋅
-200
-𝑎
-𝐿
-=
-3046.005
-−
-207
-𝑎
-𝐿
-F 
-L4
-​
- =1.035⋅2943−1.035⋅200a 
-L
-​
- =3046.005−207a 
-L
-​
- 
-Somando todos os termos constantes e os que dependem de 
-𝑎
-𝐿
-a 
-L
-​
- :
-
-Termos constantes:
-Constantes
-=
-3046.005
-+
-3097.3575
-+
-2994.6525
-+
-3046.005
-=
-12184.02
- 
-𝑁
-Constantes=3046.005+3097.3575+2994.6525+3046.005=12184.02N
-Termos com 
-𝑎
-𝐿
-a 
-L
-​
- :
-Termos com 
-𝑎
-𝐿
-=
-207
-𝑎
-𝐿
-−
-210.5
-𝑎
-𝐿
-+
-203.5
-𝑎
-𝐿
-−
-207
-𝑎
-𝐿
-=
-(
-−
-7
-𝑎
-𝐿
-)
- 
-𝑁
-Termos com a 
-L
-​
- =207a 
-L
-​
- −210.5a 
-L
-​
- +203.5a 
-L
-​
- −207a 
-L
-​
- =(−7a 
-L
-​
- )N
-Total:
-
-Total
-=
-12184.02
-−
-7
-𝑎
-𝐿
-Total=12184.02−7a 
-L
-​
- 
-Equacionar com 
-1200
-𝑎
-𝐿
-1200a 
-L
-​
- :
-1200
-𝑎
-𝐿
-=
-12184.02
-−
-7
-𝑎
-𝐿
-1200a 
-L
-​
- =12184.02−7a 
-L
-​
- 
-1200
-𝑎
-𝐿
-+
-7
-𝑎
-𝐿
-=
-12184.02
-1200a 
-L
-​
- +7a 
-L
-​
- =12184.02
-1207
-𝑎
-𝐿
-=
-12184.02
-1207a 
-L
-​
- =12184.02
-𝑎
-𝐿
-=
-12184.02
-1207
-≈
-10.1
- 
-𝑚
-/
-𝑠
-2
-a 
-L
-​
- = 
-1207
-12184.02
-​
- ≈10.1m/s 
-2
- 
-Calcular o valor em "g":
-𝑎
-𝐿
-=
-10.1
-9.81
-≈
-1.03
- 
-𝑔
-a 
-L
-​
- = 
-9.81
-10.1
-​
- ≈1.03g
-6. Análise dos Resultados
-Com cambagens diferentes entre as rodas, a aceleração lateral máxima calculada é aproximadamente 
-1.03
- 
-𝑔
-1.03g. Observa-se que a diferença nas cambagens influencia as forças laterais individuais, afetando o resultado final.
-
-7. Considerações Práticas
-Ajuste de Desempenho: Ajustar as cambagens individualmente permite otimizar o desempenho do veículo para pistas específicas, especialmente em circuitos onde predominam curvas em um sentido.
-
-Desgaste dos Pneus: Cambagens diferentes podem levar a desgastes irregulares dos pneus, sendo importante monitorar e ajustar conforme necessário.
-
-Equilíbrio do Veículo: Alterações significativas nas cambagens podem afetar o equilíbrio do veículo, exigindo ajustes na suspensão e na pressão dos pneus.
-
-8. Conclusão
-Considerar cambagens diferentes entre as rodas é crucial para uma análise detalhada do comportamento do veículo em curvas. Isso permite otimizar a aderência de cada pneu individualmente, melhorando a performance e a segurança do HB20 em condições de competição.
-
-Se você tiver dados específicos dos pneus, condições da pista ou configurações do veículo, os cálculos podem ser refinados ainda mais para fornecer resultados mais precisos.
